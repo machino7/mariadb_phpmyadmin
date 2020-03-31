@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+    mariadb:
+        build: ./docker/MariaDB/
+        environment:
+            MYSQL_DATABASE: DB
+            MYSQL_USER: dbuser
+            MYSQL_PASSWORD: dbpass2020
+            MYSQL_ROOT_PASSWORD: admin
+            TZ: 'Asia/Tokyo'
+            LANG: 'ja_JP.UTF-8'
+        volumes:
+            - .:/media
+            - mariadb-data:/var/lib/mysql
+            - /usr/lib/locale/locale-archive:/usr/lib/locale/locale-archive:ro
+            - /etc/localtime:/etc/localtime:ro
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_ARBITRARY: 1
+            PMA_HOST: mariadb
+            PMA_USER: dbuser
+            PMA_PASSWORD: dbpass2020
+        links:
+            - mariadb
+
+volumes:
+    mariadb-data:

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    mariadb:
+        ports:
+            - '13306:3306'
+
+    phpmyadmin:
+        ports:
+            - '10080:80'
